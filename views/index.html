@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Geographical Tweets</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      /*html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #mapa_div { height: 100% }*/
+      .image-entities{
+          width: 150px;
+      }
+      .format-text{
+          width: 150px;
+          text-align: justify;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 85%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        line-height: 30px;
+        padding-left: 10px;
+        font-size: 10px;
+      }
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body ng-controller="GeoTweetsCtrl">
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div id="floating-panel">
+                <input onclick="deleteMarkers();" type="button" value="Borrar busquedas">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <form id="form_datos" method="post" ng-submit="sendForm()" style="margin-top:10px;">
+                    <div class="form-group">
+                        <label>Busqueda</label>
+                        <input type="text" name="busqueda" ng-model="busqueda" class="form-control" placeholder="Busqueda" required="">
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha limite</label>
+                        <input type="date" name="fecha_lim" ng-model="fecha_lim" class="form-control" 
+                        placeholder="Fecha limite" required="" max="{{fecha_max}}" min="{{fecha_min}}">
+                    </div>
+                    <div class="form-group">
+                        <label>Positions</label>
+                        <input type="hidden" name="positions" ng-model="latlon" ng-init="latlon='4.635365,-74.101628'" class="form-control" placeholder="Positions" disabled>
+                        <br>
+                        <span class="text-danger">{{latlon}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Radio</label>
+                        <input type="range" name="radio" ng-model="radio" ng-change="changeRadius()" min="100000" step="10000" max="2630000">
+                        {{radio}}km
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Search</button>
+                </form>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" id="mapa_div" style="height:100vh; margin:0; padding:0;">
+                <!--MAPA GOOGLE MAPS-->
+            </div>
+            
+        </div>
+    </div>
+	
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAa6thPWFLvPMpd2b-8e2r0V5Vy_N_gZds"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>
