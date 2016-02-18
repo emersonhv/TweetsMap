@@ -3,5 +3,5 @@ module.exports = {
     instanceType: "STANDALONE", // APP, STANDALONE
     host: "127.0.0.1",
     webAppIP: "127.0.0.1",
-    expressPort: 80
+    expressPort: 8080
 }
